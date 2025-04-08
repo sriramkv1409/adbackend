@@ -1,18 +1,21 @@
-# Use official Python image
+# Use Python 3.10 to avoid TF version conflicts
 FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
 
-# Copy all files
-COPY . .
+# Copy dependencies first
+COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-# Expose the port your app runs on
+# Copy rest of the code
+COPY . .
+
+# Expose the port
 EXPOSE 5000
 
-# Run the app
+# Start the app
 CMD ["python", "app.py"]
