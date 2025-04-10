@@ -3,6 +3,7 @@ from flask_cors import CORS
 import cv2
 import numpy as np
 from deepface import DeepFace
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +23,6 @@ def predict_age_gender():
         # Safely extract gender
         gender_data = result.get("gender", "")
         if isinstance(gender_data, dict):
-            # DeepFace might return probability dict like {"Man": 60.0, "Woman": 40.0}
             gender = max(gender_data, key=gender_data.get)
         else:
             gender = str(gender_data)
@@ -48,4 +48,5 @@ def predict_age_gender():
         return jsonify({"error": f"Error detecting age or gender: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT not found
+    app.run(host="0.0.0.0", port=port)
