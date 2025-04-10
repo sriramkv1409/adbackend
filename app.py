@@ -8,6 +8,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "Server is running!"}), 200
+
 @app.route("/predict-age-gender", methods=["POST"])
 def predict_age_gender():
     if "image" not in request.files:
