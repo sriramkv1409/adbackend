@@ -19,3 +19,4 @@ EXPOSE 5000
 
 # Start the app
 CMD ["python", "app.py"]
+ 
