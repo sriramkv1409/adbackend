@@ -40,7 +40,7 @@ def log_detection_to_excel(age_group, gender):
 
     # Load existing workbook
     wb = load_workbook(file_name)
-    ws = wb.activex
+    ws = wb.active
 
     # Append a new row with current detection info
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
